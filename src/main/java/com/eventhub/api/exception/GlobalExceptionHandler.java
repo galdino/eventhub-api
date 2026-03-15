@@ -18,6 +18,21 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(montarResposta(ex.getMessage(), HttpStatus.NOT_FOUND.value(), "Não Encontrado"));
     }
 
+    @ExceptionHandler(ParticipanteNaoEncontradoException.class)
+    public ResponseEntity<Map<String, Object>> handleParticipanteNaoEncontrado(ParticipanteNaoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(montarResposta(ex.getMessage(), HttpStatus.NOT_FOUND.value(), "Não Encontrado"));
+    }
+
+    @ExceptionHandler(EventoLotadoException.class)
+    public ResponseEntity<Map<String, Object>> handleEventoLotado(EventoLotadoException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(montarResposta(ex.getMessage(), HttpStatus.CONFLICT.value(), "Conflito"));
+    }
+
+    @ExceptionHandler(EmailDuplicadoException.class)
+    public ResponseEntity<Map<String, Object>> handleEmailDuplicado(EmailDuplicadoException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(montarResposta(ex.getMessage(), HttpStatus.CONFLICT.value(), "Conflito"));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidacao(MethodArgumentNotValidException ex) {
         String mensagem = ex.getBindingResult().getFieldErrors().stream()
